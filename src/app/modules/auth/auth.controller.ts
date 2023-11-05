@@ -7,32 +7,14 @@ import { IUser } from '../user/users.interface';
 import { ILoginUserResponse, IRefreshTokenResponse } from './auth.interface';
 import { AuthService } from './auth.service';
 
-const createUser = async (req: Request, res: Response) => {
-  const { password, name, email } = req.body;
-  const { number, address, bio, bloodGroup, gender } = req.body; 
+const createUser = catchAsync(async (req: Request, res: Response) => {
+  const { name, email, password } = req.body;
 
   const userData: IUser = {
     email,
     password,
     name,
-    toObject: undefined,
   };
-
-  if (number) {
-    userData.number = number;
-  }
-  if (address) {
-    userData.address = address;
-  }
-  if (bio) {
-    userData.bio = bio;
-  }
-  if (bloodGroup) {
-    userData.bloodGroup = bloodGroup;
-  }
-  if (gender) {
-    userData.gender = gender;
-  }
 
   const newUser = await AuthService.createUser(userData);
 
@@ -42,7 +24,7 @@ const createUser = async (req: Request, res: Response) => {
     message: 'User created successfully',
     data: newUser,
   });
-};
+});
 
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {

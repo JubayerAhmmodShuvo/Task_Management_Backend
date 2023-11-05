@@ -2,7 +2,6 @@ import ApiError from '../../../errors/ApiError';
 
 import { IUser } from '../user/users.interface';
 import User from '../user/users.model';
-import { IAdmin } from '../admin/admin.interface';
 import {
   ILoginUser,
   ILoginUserResponse,
@@ -18,11 +17,7 @@ import httpStatus from 'http-status';
 
 const createUser = async (userData: IUser): Promise<IUser | null> => {
   try {
-    const { role, name, email, password } = userData;
-
-    if (!role) {
-      userData.role = 'user';
-    }
+    const { name, email, password } = userData;
 
     if (!name || !email || !password) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user data');
@@ -38,7 +33,7 @@ const createUser = async (userData: IUser): Promise<IUser | null> => {
   } catch (error) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to create user');
   }
-}
+};
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   const { email, password } = payload;

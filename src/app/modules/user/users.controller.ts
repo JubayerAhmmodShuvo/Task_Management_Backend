@@ -94,11 +94,7 @@ const createUser = async (req: Request, res: Response) => {
       email,
       password,
       role,
-      address,
-      bloodGroup,
-      bio,
-      gender,
-      number,
+    
     } = req.body;
 
     if (role !== 'admin' && role !== 'user') {
@@ -114,11 +110,7 @@ const createUser = async (req: Request, res: Response) => {
       email,
       password,
       role,
-      address,
-      bloodGroup,
-      bio,
-      gender,
-      number,
+     
     };
 
     const user = await UserService.createUser(userData);
